@@ -248,18 +248,23 @@ load_data <- function(source, var_cfg = cfg_path("variables.json"), ...,
 
   
   while(length(dat) > 1L) {
+  if (length(dat) >= 2) {
+    # 如果 dat[[1L]] 是 win_tbl，则转换为 ts_tbl
     if (inherits(dat[[1L]], "win_tbl")) {
-  dat[[1L]] <- expand(dat[[1L]])
-}
+      dat[[1L]] <- expand(dat[[1L]])
+    }
 
-# 如果 dat[[2L]] 是 win_tbl，则转换为 ts_tbl
-   if (inherits(dat[[2L]], "win_tbl")) {
-  dat[[2L]] <- expand(dat[[2L]])
-}
+    # 如果 dat[[2L]] 是 win_tbl，则转换为 ts_tbl
+    if (inherits(dat[[2L]], "win_tbl")) {
+      dat[[2L]] <- expand(dat[[2L]])
+    }
 
     dat[[1L]] <- merge(dat[[1L]], dat[[2L]], all = TRUE)
     dat[[2L]] <- NULL
+  } else {
+    break
   }
+}
 
   tmp <- nrow(dat[[1L]])
 
