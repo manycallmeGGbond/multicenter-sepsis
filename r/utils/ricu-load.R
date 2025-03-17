@@ -245,17 +245,7 @@ load_data <- function(source, var_cfg = cfg_path("variables.json"), ...,
   sta <- dat[which(is_id)]
   dat <- dat[which(is_ts)]
 
-  # 假设 dat[[1L]] 是 win_tbl 对象
-if (is_win_tbl(dat[[1L]])) {
-  dat[[1L]] <- expand(dat[[1L]])
-}
-# 假设 dat[[2L]] 是 win_tbl 对象
-if (is_win_tbl(dat[[2L]])) {
-  dat[[2L]] <- expand(dat[[2L]])
-}
 
-# 然后再进行合并操作
-merged_data <- merge(dat[[1L]], dat[[2L]], all = TRUE)
   
   while(length(dat) > 1L) {
     dat[[1L]] <- merge(dat[[1L]], dat[[2L]], all = TRUE)
